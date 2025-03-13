@@ -6,42 +6,24 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.user)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.user.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div style="background-color:lightgray; width:150px;height:200px; font-size:100px;"
+    class="d-flex justify-content-center align-items-center">
+
+    <a style="text-decoration:none; color:black;" asp-action="Create">+</a>
+</div>
+<span style="font-weight:bold;">Blank Document</span>
+
+<hr />
+<div class="row">
+@foreach(var doc in Model)
+{
+    <div class="col-2">
+    <div style="background-color:lightblue; width:150px;height:200px; font-size:150px;"
+         class="d-flex justify-content-center align-items-center">
+        <a style="text-decoration:none; " asp-action="Edit" asp-route-id="@doc.Id">📃</a>
+    </div>
+    <span style="font-weight:bold;">@doc.Title</span>
+    </div>
 }
-    </tbody>
-</table>
+</div>
+   

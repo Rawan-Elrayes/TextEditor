@@ -12,8 +12,8 @@ using TextEditor.Models;
 
 namespace TextEditor.Controllers
 {
-    [Authorize]
-    public class DocsController : Controller
+    [Authorize] 
+	public class DocsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -25,15 +25,18 @@ namespace TextEditor.Controllers
         // GET: Docs
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.docs.Include(d => d.user);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = from c in _context.docs select c;
+
+            applicationDbContext = applicationDbContext
+                .Where(a => a.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return View(await applicationDbContext.Include(u=>u.user).ToListAsync());
         }
 
         // GET: Docs/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            return View(new Docs());
         }
 
         // POST: Docs/Create
@@ -49,7 +52,7 @@ namespace TextEditor.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", docs.UserId);
+            
             return View(docs);
         }
 

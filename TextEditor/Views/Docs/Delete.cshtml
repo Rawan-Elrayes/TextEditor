@@ -21,19 +21,15 @@
             @Html.DisplayNameFor(model => model.Content)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
+            <textarea id="tiny" style="width:60vw ; height:80vh" asp-for="Content" disabled></textarea>
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.user)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.user.Id)
+
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" class="btn btn-info">Back to List</a>
     </form>
 </div>
